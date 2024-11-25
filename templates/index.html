@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>설문조사</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="form-container">
+        <form action="/next_question" method="POST">
+            <!-- Progress Bar -->
+            <div class="progress-bar">
+                <div class="progress-bar-fill" style="width: {{ (progress / total_questions) * 100 }}%;"></div>
+            </div>
+
+            <h1>{{ question }}</h1>
+            <input type="hidden" name="current_question" value="{{ current_question }}">
+            <input type="hidden" name="current_code" value="{{ current_code }}">
+            <input type="hidden" name="progress" value="{{ progress }}">
+            <input type="hidden" name="total_questions" value="{{ total_questions }}">
+            {% for option, details in options.items() %}
+            <label class="custom-radio">
+                <input type="radio" name="response" value="{{ option }}" required>
+                <span class="custom-radio-bar">{{ option }}</span>
+            </label>
+            {% endfor %}
+            <button type="submit" class="next-button">다음</button>
+        </form>
+    </div>
+</body>
+</html>
